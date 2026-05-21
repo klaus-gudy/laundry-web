@@ -1,9 +1,13 @@
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button"
 
 export default function Home() {
   return (
     <div className="flex min-h-svh items-center justify-center">
-      <Button>Click me</Button>
+      <>
+      <Button variant={"outline"}>Click me</Button>
+      <ThemeToggle />
+    </>
     </div>
   );
 }
