@@ -1,10 +1,13 @@
-'use client';
+"use client";
 import { Header } from "@/components/shared/header";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf } from "lucide-react";
+import { ArrowRight, CalendarCheck, Leaf, Sparkles, Truck } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import stepCollect from "@/public/step-collect.jpg";
+import stepFolded from "@/public/step-folded.jpg";
+import stepSchedule from "@/public/step-schedule.jpg";
 
 export default function Home() {
   return (
@@ -65,6 +68,91 @@ export default function Home() {
               </div>
             </motion.div>
           </div>
+        </section>
+
+        <section className="border-t border-border/60 bg-card/40">
+          <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+            <div className="mb-12 text-center">
+              <p className="text-sm uppercase tracking-[0.2em] text-primary">
+                How it works
+              </p>
+              <h2 className="mt-3 font-display text-4xl sm:text-5xl">
+                Three small steps
+              </h2>
+            </div>
+            <div className="grid gap-8 md:grid-cols-3">
+              {[
+                {
+                  icon: CalendarCheck,
+                  title: "Schedule",
+                  desc: "Pick a date and a time slot that suits you.",
+                  img: stepSchedule,
+                  alt: "Calendar with a sage checkmark",
+                },
+                {
+                  icon: Truck,
+                  title: "We collect",
+                  desc: "Our team arrives at your door, no waiting around.",
+                  img: stepCollect,
+                  alt: "Wicker basket of folded linens at a doorstep",
+                },
+                {
+                  icon: Sparkles,
+                  title: "Folded & returned",
+                  desc: "Get everything back fresh, folded, and ready.",
+                  img: stepFolded,
+                  alt: "Stack of folded cream towels tied with a sage ribbon",
+                },
+              ].map((s, i) => (
+                <motion.div
+                  key={s.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-background transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(125,155,118,0.55)]"
+                >
+                  <div className="relative aspect-4/3 overflow-hidden bg-secondary/60">
+                    <Image
+                      src={s.img}
+                      alt={s.alt}
+                      width={800}
+                      height={600}
+                      loading="lazy"
+                      className="h-full w-full object-cover opacity-90 transition-all duration-700 ease-out group-hover:scale-110 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-background/70 via-background/10 to-transparent transition-opacity duration-500 group-hover:opacity-40" />
+                    <span className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-full bg-background/90 text-primary shadow-sm backdrop-blur-sm">
+                      <s.icon className="h-5 w-5" />
+                    </span>
+                    <span className="absolute right-4 top-4 rounded-full bg-background/90 px-2.5 py-1 text-[11px] font-medium tracking-wide text-muted-foreground backdrop-blur-sm">
+                      0{i + 1}
+                    </span>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-display text-2xl">{s.title}</h3>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {s.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6">
+          <h2 className="font-display text-4xl sm:text-5xl">
+            Ready for a lighter week?
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+            Your first pickup takes under a minute to schedule.
+          </p>
+          <Link href="/book" className="mt-8 inline-block">
+            <Button size="lg" className="gap-2">
+              Book your pickup <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
         </section>
       </>
     </div>
