@@ -1,6 +1,8 @@
+'use client';
 import { LogOut, Sprout, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { ThemeToggle } from "../theme/theme-toggle";
 
 export function Header() {
   return (
@@ -52,6 +54,7 @@ export function Header() {
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
             </Button>
+            <ThemeToggle />
           </>
 
           {/* <>
