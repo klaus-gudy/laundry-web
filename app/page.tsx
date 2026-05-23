@@ -8,6 +8,7 @@ import Link from "next/link";
 import stepCollect from "@/public/step-collect.jpg";
 import stepFolded from "@/public/step-folded.jpg";
 import stepSchedule from "@/public/step-schedule.jpg";
+import { Footer } from "@/components/shared/footer";
 
 export default function Home() {
   return (
@@ -154,6 +155,8 @@ export default function Home() {
             </Button>
           </Link>
         </section>
+
+        <Footer />
       </>
     </div>
   );
