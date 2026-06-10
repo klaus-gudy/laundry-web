@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,29 +6,37 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/store/auth-store";
+import { authService } from "@/services/auth.service";
 
 export default function LoginPage() {
-    // const router = useRouter();
-    // const { setAuth } = useAuthStore();
+  const router = useRouter();
+  const { setAuth } = useAuthStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function onSubmit(e: React.FormEvent) {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+
     try {
-      await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      setLoading(true);
+
+      const response = await authService.login({
+        email,
+        password,
       });
-      window.location.href = "/book";
-    } catch (e) {
-      toast.error("Login failed");
+
+      setAuth(response.accessToken, response.user);
+
+      router.push("/booking");
+    } catch (error) {
+      console.error(error);
+    } finally {
       setLoading(false);
     }
-  }
+  };
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-4 rounded-3xl border border-border bg-card p-6 shadow-lg sm:p-8 md:p-10">
